@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.container {
+    text-align: center;
+}
+
+.game-board {
+    display: inline-block;
+    border: 2px solid #333;
+    background-color: lightgray;
+    width: 25vw;
+    height: 50vw;
+    font-size: 0;
+}
+
+
+.cell {
+    display: inline-block;
+    background-color: #fff;
+    box-sizing: border-box;
+    border: 1px solid #333;
+    margin: -1px;
+}
+
+.cell.filled {
+    background-color: dodgerblue;
+}
+
+.cell.filled.cyan {
+    background-color: cyan;
+}
+
+.cell.filled.purple {
+    background-color: purple;
+}
+
+.cell.filled.orange {
+    background-color: orange;
+}
+
+.cell.filled.blue {
+    background-color: blue;
+}
+
+.cell.filled.green {
+    background-color: green;
+}
+
+.cell.filled.yellow {
+    background-color: yellow;
+}
+
+.cell.filled.red {
+    background-color: red;
+}
+
+.start-button-container{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#start {
+    width: 10vw;
+    height: 5vw;
+    background-color: mediumspringgreen;
+    font-size: 2vw;
+}
+
+.score {
+    margin-top: 20px;
+    font-size: 24px;
+}
