@@ -6,6 +6,7 @@ const CELL_SIZE = 2.5;
 // Variables
 let gameBoard = [];
 let score = 0;
+let gameOver = false;
 
 // Tetrimino
 let currentTetrimino;
@@ -138,17 +139,24 @@ function lockTetrimino(tetrimino, row, col) {
 
     renderGameBoard();
     clearCompletedRows();
-    generateNewTetrimino();
+
+    if (checkGameLost()) {
+        endGame();
+    } else {
+        generateNewTetrimino();
+    }
 }
 
 // Function to generate a new Tetrimino
 function generateNewTetrimino() {
-    // Generate a random Tetrimino
-    currentTetrimino = generateRandomTetrimino();
-    // Reset the position of the new Tetrimino to the top center of the game board
-    currentRow = 0;
-    currentCol = Math.floor(COLS / 2) - Math.floor(currentTetrimino[0].length / 2);
-    displayTetrimino(currentTetrimino, currentRow, currentCol);
+    if(!gameOver){
+        // Generate a random Tetrimino
+        currentTetrimino = generateRandomTetrimino();
+        // Reset the position of the new Tetrimino to the top center of the game board
+        currentRow = 0;
+        currentCol = Math.floor(COLS / 2) - Math.floor(currentTetrimino[0].length / 2);
+        displayTetrimino(currentTetrimino, currentRow, currentCol);
+    }
 }
 
 // Function to get the color class based on the Tetrimino type
@@ -401,14 +409,34 @@ function updateScore(newScore) {
     document.getElementById('score').textContent = score;
 }
 
+// Function to check if the game is lost (Tetrimino reaches the top)
+function checkGameLost() {
+    for (let col = 0; col < COLS; col++) {
+        if (gameBoard[0][col] !== 0) {
+            console.log("Game Lost!");
+            return true; // Game is lost if any cell in the top row is filled
+        }
+    }
+    return false;
+}
+
+function endGame() {
+    gameOver = true;
+    stopDownwardMovement();
+    const loseOverlay = document.createElement('div');
+    loseOverlay.setAttribute('id', 'lose');
+    document.getElementById('gameBoard').appendChild(loseOverlay);
+}
 
 
 // start game
 function init() {
+    gameOver = false;
     stopDownwardMovement();
     gameBoard = [];
     clearInterval(intervalId);
 
+    if(document.getElementById('lose')) document.getElementById('lose').remove();
 
 
     initGameBoard();
@@ -422,3 +450,19 @@ function init() {
 document.getElementById("start").addEventListener("click" , function (e) {
     init();
 })
+
+
+
+/*
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+----------------------------------------------------- AI -----------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------
+ */

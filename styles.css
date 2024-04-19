@@ -14,6 +14,7 @@ body {
 }
 
 .game-board {
+    position: relative;
     display: inline-block;
     border: 2px solid #333;
     background-color: lightgray;
@@ -29,6 +30,7 @@ body {
     box-sizing: border-box;
     border: 1px solid #333;
     margin: -1px;
+    z-index: 1;
 }
 
 .cell.filled {
@@ -79,4 +81,14 @@ body {
 .score {
     margin-top: 20px;
     font-size: 24px;
+}
+
+#lose{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 25vw;
+    height: 50vw;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 5;
 }
